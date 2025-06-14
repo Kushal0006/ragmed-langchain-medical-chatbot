@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Futuristic Chatbot</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0f0f0f, #1b1b1b);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      color: #fff;
+    }
+
+    .chat-wrapper {
+      background-color: #141414;
+      width: 90%;
+      max-width: 720px;
+      height: 85vh;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+    }
+
+    .chat-header {
+      background: linear-gradient(to right, #667eea, #764ba2);
+      padding: 18px 24px;
+      text-align: center;
+    }
+
+    .chat-header h2 {
+      font-weight: 600;
+      font-size: 1.3rem;
+    }
+
+    .chat-body {
+      padding: 20px;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .message {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .message.user {
+      justify-content: flex-end;
+    }
+
+    .message.bot .icon, .message.user .icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      margin-right: 12px;
+      background-color: #262626;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .message.user .icon {
+      display: none;
+    }
+
+    .bubble {
+      background-color: #232323;
+      color: #eee;
+      padding: 14px 18px;
+      border-radius: 16px;
+      max-width: 70%;
+      line-height: 1.5;
+      font-size: 15px;
+    }
+
+    .message.user .bubble {
+      background-color: #3248ff;
+      color: #fff;
+      border-bottom-right-radius: 0;
+    }
+
+    .message.bot .bubble {
+      background-color: #2b2b2b;
+      border-bottom-left-radius: 0;
+    }
+
+    .chat-footer {
+      padding: 14px 20px;
+      border-top: 1px solid #2d2d2d;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color: #1a1a1a;
+    }
+
+    .chat-footer input {
+      flex: 1;
+      background-color: #2a2a2a;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 16px;
+      color: #fff;
+      font-size: 14px;
+    }
+
+    .chat-footer button {
+      background-color: #3248ff;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 10px;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .chat-footer button:hover {
+      background-color: #4a63ff;
+    }
+
+    .icon img {
+      width: 20px;
+      height: 20px;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #444;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="chat-wrapper">
+    <div class="chat-header">
+      <h2>💬 Medical Chatbot</h2>
+    </div>
+    <div class="chat-body" id="chat-body">
+      <!-- Messages will be appended here -->
+    </div>
+    <div class="chat-footer">
+      <input type="text" id="text" placeholder="Ask something..." autocomplete="off" />
+      <button id="send"><i class="fas fa-location-arrow"></i></button>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    function appendMessage(content, isUser) {
+      const msg = `
+        <div class="message ${isUser ? 'user' : 'bot'}">
+          ${!isUser ? `
+            <div class="icon"><img src="https://cdn-icons-png.flaticon.com/512/387/387569.png" alt="bot"></div>
+          ` : ''}
+          <div class="bubble">${content}</div>
+        </div>
+      `;
+      $('#chat-body').append(msg);
+      $('#chat-body').scrollTop($('#chat-body')[0].scrollHeight);
+    }
+
+    function sendMessage() {
+      const input = $('#text');
+      const text = input.val().trim();
+      if (!text) return;
+
+      appendMessage(text, true);
+      input.val('');
+
+      $.ajax({
+        type: 'POST',
+        url: '/get',
+        data: { msg: text }
+      }).done(function(response) {
+        appendMessage(response, false);
+      });
+    }
+
+    $('#send').on('click', sendMessage);
+    $('#text').on('keypress', function(e) {
+      if (e.which === 13 && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+  </script>
+
+</body>
+</html>

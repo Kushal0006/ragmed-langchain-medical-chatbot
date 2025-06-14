@@ -44,6 +44,21 @@ ragmed-langchain-medical-chatbot/
 └── README.md
 ```
 
+## 🔐 API Keys Setup
+This project requires two API keys to function:
+
+1. **Groq API Key**
+Used to access Groq-hosted LLaMA or Gemma models via LangChain
+
+🔗 Get your key here: https://console.groq.com/keys
+
+2. **Pinecone API Key**
+Used to connect with Pinecone vector database for document retrieval
+
+🔗 Sign up at: https://www.pinecone.io/
+
+### ⚠ Important: Never upload your actual API key to GitHub. Use a .env file or environment variables for security.
+
 ---
 
 ## ⚙️ Setup Instructions

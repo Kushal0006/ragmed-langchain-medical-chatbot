@@ -44,6 +44,11 @@ ragmed-langchain-medical-chatbot/
 └── README.md
 ```
 
+## UI Preview 
+![WhatsApp Image 2025-06-14 at 18 21 04_115c6dd7](https://github.com/user-attachments/assets/6fb10a2e-a6b4-4b01-ae3a-670f40b8bab8)
+
+---
+
 ## 🔐 API Keys Setup
 This project requires two API keys to function:
 

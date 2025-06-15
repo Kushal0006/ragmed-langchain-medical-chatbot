@@ -45,7 +45,7 @@ ragmed-langchain-medical-chatbot/
 ```
 
 ## UI Preview 
-![WhatsApp Image 2025-06-14 at 18 21 04_115c6dd7](https://github.com/user-attachments/assets/6fb10a2e-a6b4-4b01-ae3a-670f40b8bab8)
+![WhatsApp Image 2025-06-15 at 11 12 43_3a186cc2](https://github.com/user-attachments/assets/32e94295-afa3-4cb8-ba2c-749a245caed6)
 
 ---
 
